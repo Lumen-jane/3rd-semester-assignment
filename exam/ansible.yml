@@ -1,0 +1,40 @@
+---
+- name: Execute bash script on Slave node and verify PHP application accessibility
+  hosts: localhost
+  become_user: yes
+  gather_facts: no
+
+  tasks:
+  - name: Execute bash script
+    shell: /home/maryjane_ubuntu/lamp.sh
+
+  - name: Verify PHP application accessibility
+    uri:
+      url: http://127.0.0.1/
+      return_content: yes
+    register: result
+
+  - name: Print result
+    debug:
+      var: result
+- name: Create Cron Job to Check Server Uptime
+  hosts: 127.0.0.1
+  become: "yes"
+
+  tasks:
+    - name: Create Cron Job
+      cron:
+        name: Check Server Uptime
+        job: /usr/bin/uptime > /var/log/uptime.log
+        minute: 0
+        hour: 0
+      become_user: root
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+~                                                                                                                                   
+"./slave-config.yaml" 31L, 686B  

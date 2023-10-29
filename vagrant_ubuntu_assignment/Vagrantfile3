@@ -1,0 +1,11 @@
+Vagrant.configure(2) do |config|
+
+# create the loadbalancer
+  config.vm.define "loadbal" do |loadbal01|
+    loadbal01.vm.box = "ubuntu/focal64"
+    loadbal01.vm.hostname = "loadbal"
+    loadbal01.vm.network "private_network", ip: "172.0.0.4"
+    loadbal01.vm.boot_timeout = 600
+    loadbal01.vm.provision "shell", path: "loadbalancer.sh"
+  end
+end
